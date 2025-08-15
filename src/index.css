@@ -1,1 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
 @import "tailwindcss";
+
+* {
+    box-sizing: border-box;
+    font-family: 'Sora', serif;
+}
+
+.main-container {
+    width: 85%;
+    margin: 0 auto;
+}
+
+@media only screen and (max-width: 1024px) {
+    .main-container {
+        width: 90%;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 1024px) {
+  .header-bg {
+    background-image: url("./assets/header-img.svg") !important;
+  }
+}

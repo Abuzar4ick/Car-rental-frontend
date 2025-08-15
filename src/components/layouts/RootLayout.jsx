@@ -6,11 +6,15 @@ import Footer from '../common/Footer'
 const RootLayout = () => {
   return (
     <>
-      <Navbar />
-      <main>
+      <header className="w-full">
+        <Navbar />
+      </header>
+      <main className="main-container">
         <Outlet />
       </main>
-      <Footer />
+      <footer>
+        <Footer />
+      </footer>
     </>
   )
 }
