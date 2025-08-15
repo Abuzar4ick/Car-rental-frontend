@@ -10,7 +10,7 @@ const InfoBlock = () => {
         { id: 3, icon: <LuWallet />, title: 'Savings', description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officia, explicabo.' }
     ]
   return (
-    <div className="w-full min-h-[315px] flex flex-wrap justify-center gap-8 sm:gap-6 p-4 items-center">
+    <section className="w-full min-h-[315px] flex flex-wrap justify-center gap-8 sm:gap-6 p-4 items-center max-xl:p-15">
         {infos.map((info) => (
             <div key={info.id} className="flex flex-col items-center text-center max-w-[357px] gap-y-2">
                 <span className="min-[1250px]:text-[56px] text-[46px]">
@@ -20,7 +20,7 @@ const InfoBlock = () => {
                 <p className="min-[1000px]:text-[16px] text-[14px] font-normal">{info.description}</p>
             </div>
         ))}
-    </div>
+    </section>
   )
 }
 
