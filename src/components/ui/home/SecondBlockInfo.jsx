@@ -9,7 +9,7 @@ const SecondBlockInfo = () => {
         { id: 4, text: 'Cras nulla aliquet nam eleifend amet et', description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum iusto corrupti labore quasi, minima delectus.' }
     ]
   return (
-    <section className='min-h-[669px] flex items-center justify-center min-xl:gap-18 max-xl:grid max-xl:gap-8'>
+    <section className='min-h-[669px] flex items-center justify-center min-xl:gap-18 max-xl:grid max-xl:gap-8 max-xl:pb-15'>
       <img src={image} alt="Block info image" />
       <div className='flex flex-col gap-y-[28px]'>
         {infos.map((info) => (
