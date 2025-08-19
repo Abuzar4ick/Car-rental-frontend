@@ -8,11 +8,11 @@ import { FaRegSnowflake } from "react-icons/fa";
 const CarsList = () => {
   const cars = [
     { id: 1, title: "BMW M5 competition", type: "Sport", gear_box: "Automat", fuel: "Diesel", air_conditioner: true, per_day: 55, image: "https://images.drive.ru/i/0/5ee9c3bbec05c4714d00002d.jpg" },
-    { id: 2, title: "BMW M5 competition", type: "Sport", gear_box: "Automat", fuel: "Diesel", air_conditioner: true, per_day: 55, image: "https://images.drive.ru/i/0/5ee9c3bbec05c4714d00002d.jpg" },
-    { id: 3, title: "BMW M5 competition", type: "Sport", gear_box: "Automat", fuel: "Diesel", air_conditioner: false, per_day: 55, image: "https://images.drive.ru/i/0/5ee9c3bbec05c4714d00002d.jpg" },
-    { id: 4, title: "BMW M5 competition", type: "Sport", gear_box: "Automat", fuel: "Diesel", air_conditioner: true, per_day: 55, image: "https://images.drive.ru/i/0/5ee9c3bbec05c4714d00002d.jpg" },
-    { id: 5, title: "BMW M5 competition", type: "Sport", gear_box: "Automat", fuel: "Diesel", air_conditioner: false, per_day: 55, image: "https://images.drive.ru/i/0/5ee9c3bbec05c4714d00002d.jpg" },
-    { id: 6, title: "BMW M5 competition", type: "Sport", gear_box: "Automat", fuel: "Diesel", air_conditioner: true, per_day: 55, image: "https://images.drive.ru/i/0/5ee9c3bbec05c4714d00002d.jpg" },
+    { id: 2, title: "BMW M5 competition", type: "Sport", gear_box: "Automat", fuel: "Diesel", air_conditioner: true, per_day: 35, image: "https://images.drive.ru/i/0/5ee9c3bbec05c4714d00002d.jpg" },
+    { id: 3, title: "BMW M5 competition", type: "Sport", gear_box: "Automat", fuel: "Diesel", air_conditioner: false, per_day: 44, image: "https://images.drive.ru/i/0/5ee9c3bbec05c4714d00002d.jpg" },
+    { id: 4, title: "BMW M5 competition", type: "Sport", gear_box: "Automat", fuel: "Diesel", air_conditioner: true, per_day: 70, image: "https://images.drive.ru/i/0/5ee9c3bbec05c4714d00002d.jpg" },
+    { id: 5, title: "BMW M5 competition", type: "Sport", gear_box: "Automat", fuel: "Diesel", air_conditioner: false, per_day: 50, image: "https://images.drive.ru/i/0/5ee9c3bbec05c4714d00002d.jpg" },
+    { id: 6, title: "BMW M5 competition", type: "Sport", gear_box: "Automat", fuel: "Diesel", air_conditioner: true, per_day: 38, image: "https://images.drive.ru/i/0/5ee9c3bbec05c4714d00002d.jpg" },
   ];
 
   return (

@@ -3,30 +3,31 @@ import { useState } from "react";
 import HeaderImage from "../../../assets/header-img.svg";
 // icons
 import { IoIosArrowDown } from "react-icons/io";
-// moadl
+import { HiMiniCalendarDateRange } from "react-icons/hi2";
+// modal
 import Modal from "../Modal";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
 
   const carTypes = [
-    { id: 1, text: "Sport" },
-    { id: 2, text: "Sedan" },
-    { id: 3, text: "SUV" },
-    { id: 4, text: "VAN" },
-    { id: 5, text: "Minivan" },
-    { id: 6, text: "Pickup" },
-    { id: 7, text: "Cabriolet" },
+    { id: 1, text: "Sport", value: 'Sport' },
+    { id: 2, text: "Sedan", value: 'Sedan' },
+    { id: 3, text: "SUV", value: 'SUV' },
+    { id: 4, text: "VAN", value: 'VAN' },
+    { id: 5, text: "Minivan", value: 'Minivan' },
+    { id: 6, text: "Pickup", value: 'Pickup' },
+    { id: 7, text: "Cabriolet", value: 'Cabriolet' },
   ];
 
   const places = [
-    { id: 1, place_name: "Tashkent" },
-    { id: 2, place_name: "Samarqand" },
-    { id: 3, place_name: "Buxoro" },
-    { id: 4, place_name: "Navoiy" },
-    { id: 5, place_name: "Xorazm" },
-    { id: 6, place_name: "Namangan" },
-    { id: 7, place_name: "Jizzax" },
+    { id: 1, place_name: "Tashkent", value: 'Tashkent' },
+    { id: 2, place_name: "Samarqand", value: 'Samarqand' },
+    { id: 3, place_name: "Buxoro", value: 'Buxoro' },
+    { id: 4, place_name: "Navoiy", value: 'Novoiy' },
+    { id: 5, place_name: "Xorazm", value: 'Xorazm' },
+    { id: 6, place_name: "Namangan", value: 'Namangan' },
+    { id: 7, place_name: "Jizzax", value: 'Jizzax' },
   ];
 
   return (
@@ -68,34 +69,62 @@ const Header = () => {
               Book your car
             </p>
 
+            {/* Car type */}
             <div className="relative">
-            <select className="w-full h-[42px] appearance-none outline-none bg-[#FAFAFA] rounded-[12px] px-3 text-gray-700 focus:ring-2 focus:ring-[#5937E0] transition">
-              <option selected>Car type</option>
-              {carTypes.map((carType) => (
-                <option key={carType.id}>{carType.text}</option>
-              ))}
-            </select>
-            <IoIosArrowDown className="absolute top-3.5 right-4" />
-            </div>
-
-            <div className="relative">
-              <select className="w-full h-[42px] appearance-none outline-none bg-[#FAFAFA] rounded-[12px] px-3 text-gray-700 focus:ring-2 focus:ring-[#5937E0] transition">
-                <option selected>Place of rental</option>
-                {places.map((place) => (
-                  <option key={place.id}>{place.place_name}</option>
+              <select
+                defaultValue=""
+                className="w-full h-[42px] appearance-none outline-none bg-[#FAFAFA] rounded-[12px] px-3 text-gray-700 focus:ring-2 focus:ring-[#5937E0] transition"
+              >
+                <option value="" disabled>Car type</option>
+                {carTypes.map((carType) => (
+                  <option key={carType.id} value={carType.value}>
+                    {carType.text}
+                  </option>
                 ))}
               </select>
               <IoIosArrowDown className="absolute top-3.5 right-4" />
             </div>
 
+            {/* Place of rental */}
             <div className="relative">
-              <select className="w-full h-[42px] appearance-none outline-none bg-[#FAFAFA] rounded-[12px] px-3 text-gray-700 focus:ring-2 focus:ring-[#5937E0] transition">
-              <option selected>Place of return</option>
+              <select
+                defaultValue="Tashkent"
+                className="w-full h-[42px] appearance-none outline-none bg-[#FAFAFA] rounded-[12px] px-3 text-gray-700 focus:ring-2 focus:ring-[#5937E0] transition"
+              >
+                <option value="" disabled>Place of rental</option>
                 {places.map((place) => (
-                  <option key={place.id}>{place.place_name}</option>
+                  <option key={place.id} value={place.value}>
+                    {place.place_name}
+                  </option>
                 ))}
               </select>
               <IoIosArrowDown className="absolute top-3.5 right-4" />
+            </div>
+
+            {/* Place of return */}
+            <div className="relative">
+              <select
+                defaultValue="Tashkent"
+                className="w-full h-[42px] appearance-none outline-none bg-[#FAFAFA] rounded-[12px] px-3 text-gray-700 focus:ring-2 focus:ring-[#5937E0] transition"
+              >
+                <option value="" disabled>Place of return</option>
+                {places.map((place) => (
+                  <option key={place.id} value={place.value}>
+                    {place.place_name}
+                  </option>
+                ))}
+              </select>
+              <IoIosArrowDown className="absolute top-3.5 right-4" />
+            </div>
+
+            <div className="flex flex-col text-start gap-1 text-gray-700 relative">
+              <input type="text" placeholder="Rental date" className="w-full h-[42px] appearance-none outline-none bg-[#FAFAFA] rounded-[12px] px-3 text-gray-700 focus:ring-2 focus:ring-[#5937E0] transition placeholder:text-gray-700" />
+              <HiMiniCalendarDateRange className="absolute top-3 right-3" size={20} />
+            </div>
+
+            <div className="flex flex-col text-start gap-1 text-gray-700 relative">
+              <input type="text" placeholder="Return date" className="w-full h-[42px] appearance-none outline-none bg-[#FAFAFA] rounded-[12px] px-3 text-gray-700 focus:ring-2 focus:ring-[#5937E0] transition placeholder:text-gray-700" />
+              <HiMiniCalendarDateRange className="absolute top-3 right-3" size={20} />
             </div>
             
             <button
