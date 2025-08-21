@@ -17,7 +17,7 @@ const RootLayout = () => {
       </main>
 
       {/* Footer */}
-      <footer className="py-6">
+      <footer className="py-[60px]">
         <Footer />
       </footer>
       <div className="py-4 mt-15">

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 // image
 import HeaderImage from "../../../assets/header-img.svg";
 // icons
@@ -50,9 +51,9 @@ const Header = () => {
           totam.
         </p>
         <div className="flex flex-wrap justify-center gap-4">
-          <button className="bg-[#FF9E0C] hover:bg-[#e18c07] transition-colors duration-200 h-[48px] w-[180px] xs:w-full rounded-[12px] text-white font-semibold shadow-lg">
+          <NavLink to={`/vehicles`} className="bg-[#FF9E0C] hover:bg-[#e18c07] flex items-center justify-center transition-colors duration-200 h-[48px] w-[180px] xs:w-full rounded-[12px] text-white font-semibold shadow-lg">
             View all cars
-          </button>
+          </NavLink>
           <button
             onClick={() => setOpen(true)}
             className="bg-transparent border border-white hover:bg-white hover:text-[#5937E0] transition-colors duration-200 h-[48px] w-[180px] xs:w-full rounded-[12px] text-white font-semibold shadow-lg"

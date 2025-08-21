@@ -3,6 +3,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import RootLayout from './components/layouts/RootLayout'
 // pages
 import HomePage from './pages/Home'
+import VehiclesPage from './pages/Vehicles'
+import CarDetail from './pages/CarDetail'
 
 const App = () => {
   const routes = createBrowserRouter([
@@ -13,6 +15,14 @@ const App = () => {
         {
           index: true,
           element: <HomePage />
+        },
+        {
+          path: 'vehicles',
+          element: <VehiclesPage />
+        },
+        {
+          path: 'vehicles/:id',
+          element: <CarDetail />
         }
       ]
     }
