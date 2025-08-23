@@ -1,9 +1,13 @@
+// components
+import Technical from "../components/ui/detail/Technical"
+import CarsList from "../components/ui/detail/CarsList"
 
 const CarDetail = () => {
   return (
-    <div>
-      
-    </div>
+    <>
+      <Technical />
+      <CarsList />
+    </>
   )
 }
 

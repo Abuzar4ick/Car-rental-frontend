@@ -17,7 +17,6 @@ const Navbar = () => {
   const links = [
     { id: 1, text: "Home", link: "/" },
     { id: 2, text: "Vehicles", link: "/vehicles" },
-    { id: 3, text: "Details", link: null },
     { id: 4, text: "About Us", link: "/about" },
     { id: 5, text: "Contact Us", link: "/contact" },
   ];
@@ -30,7 +29,15 @@ const Navbar = () => {
 
       <ul className="flex gap-[30px] max-[950px]:hidden">
         {links.map((link) => (
-          <NavLink key={link.id} to={link.link}>
+          <NavLink
+            key={link.id}
+            to={link.link}
+            className={({ isActive }) =>
+              `transition-colors duration-200 ${
+                isActive ? "font-bold" : "font-normal"
+              }`
+            }
+          >
             {link.text}
           </NavLink>
         ))}
@@ -54,6 +61,7 @@ const Navbar = () => {
         )}
       </div>
 
+      {/* Mobile menu */}
       <div
         className={`fixed top-0 left-0 h-screen w-[50%] max-[550px]:w-[70%] bg-white transform transition-transform duration-300 z-40 min-[950px]:hidden flex ${
           showMenu ? "translate-x-0" : "-translate-x-full"
@@ -65,7 +73,11 @@ const Navbar = () => {
               key={link.id}
               to={link.link}
               onClick={() => setShowMenu(false)}
-              className="hover:text-blue-400 text-lg"
+              className={({ isActive }) =>
+                `hover:text-blue-400 text-lg ${
+                  isActive ? "font-bold" : "font-normal"
+                }`
+              }
             >
               {link.text}
             </NavLink>
