@@ -4,7 +4,9 @@ import RootLayout from './components/layouts/RootLayout'
 // pages
 import HomePage from './pages/Home'
 import VehiclesPage from './pages/Vehicles'
-import CarDetail from './pages/CarDetail'
+import CarDetailPage from './pages/CarDetail'
+import AboutPage from './pages/About'
+import Contact from './pages/Contact'
 
 const App = () => {
   const routes = createBrowserRouter([
@@ -22,7 +24,15 @@ const App = () => {
         },
         {
           path: 'vehicles/:id',
-          element: <CarDetail />
+          element: <CarDetailPage />
+        },
+        {
+          path: 'about',
+          element: <AboutPage />
+        },
+        {
+          path: 'contact',
+          element: <Contact />
         }
       ]
     }

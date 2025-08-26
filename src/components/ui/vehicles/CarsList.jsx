@@ -1,24 +1,20 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import useAxios from "../../../hooks/useAxios";
 // icons
 import { GiGearStickPattern } from "react-icons/gi";
 import { BsFillFuelPumpDieselFill } from "react-icons/bs";
 import { FaRegSnowflake } from "react-icons/fa";
 
 const CarsList = () => {
-  const { request, loading, error } = useAxios();
   const [selectedBtn, setSelectedBtn] = useState(1);
   const [cars, setCars] = useState([]);
-
-  const cloudBaseUrl = `${import.meta.env.VITE_CLOUDINARY_URL}`;
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const buttons = [
     { id: 1, text: "All vehicles", sort: "all" },
     { id: 2, text: "Sport", sort: "Sport" },
     { id: 3, text: "Sedan", sort: "Sedan" },
-    { id: 4, text: "Suv", sort: "SUV" },
-    { id: 5, text: "Van", sort: "VAN" },
     { id: 6, text: "Minivan", sort: "Minivan" },
     { id: 7, text: "Pickup", sort: "Pickup" },
     { id: 8, text: "Cabriolet", sort: "Cabriolet" },
@@ -32,20 +28,27 @@ const CarsList = () => {
         );
 
   useEffect(() => {
-    (async () => {
-      const result = await request({
-        url: `${import.meta.env.VITE_API}/cars`,
-      });
-
-      if (result?.success) {
-        setCars(result.data);
-        console.log(result.data);
+    const fetchCars = async () => {
+      try {
+        const res = await fetch("/cars.json")
+        if (!res.ok) {
+          throw new Error("Failed to fetch cars data");
+        }
+        const data = await res.json();
+        setCars(data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
       }
-    })();
+    };
+
+    fetchCars();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (loading) return <p className="text-center">Loading...</p>;
+  if (error) return <p className="text-center text-red-500">Error: {error.message}</p>;
+
   return (
     <section className="min-sm:pt-[60px] flex flex-col gap-10">
       <div className="flex flex-col items-center gap-10">
@@ -68,16 +71,13 @@ const CarsList = () => {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {filteredCars.map((car) => {
-          const imageUrl = car.main_image
-            ? cloudBaseUrl + car.main_image
-            : "https://via.placeholder.com/300x220?text=No+Image";
           return (
             <div
               key={car.id}
               className="w-full bg-[#FAFAFA] rounded-[20px] overflow-hidden flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-2"
             >
               <img
-                src={imageUrl}
+                src={car.main_image || "https://via.placeholder.com/300x220?text=No+Image"}
                 alt={car.title}
                 className="w-full h-[220px] object-cover"
               />
@@ -99,18 +99,15 @@ const CarsList = () => {
 
                   <div className="flex justify-around text-gray-600 mt-4">
                     <p className="flex items-center gap-2 text-sm">
-                      <GiGearStickPattern size={18} className="text-black" />{" "}
+                      <GiGearStickPattern size={18} className="text-black" />
                       {car.gear_box}
                     </p>
                     <p className="flex items-center gap-2 text-sm">
-                      <BsFillFuelPumpDieselFill
-                        size={18}
-                        className="text-black"
-                      />{" "}
+                      <BsFillFuelPumpDieselFill size={18} className="text-black" />
                       {car.fuel}
                     </p>
                     <p className="flex items-center gap-2 text-sm">
-                      <FaRegSnowflake size={18} className="text-black" />{" "}
+                      <FaRegSnowflake size={18} className="text-black" />
                       {car.air_conditioner ? "AC" : "Fan"}
                     </p>
                   </div>

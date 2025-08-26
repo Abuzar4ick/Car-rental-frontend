@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import useAxios from "../../../hooks/useAxios";
 // icons
 import { TbManualGearbox } from "react-icons/tb";
 import { BsFuelPump } from "react-icons/bs";
@@ -13,39 +12,49 @@ import { HiMiniCalendarDateRange } from "react-icons/hi2";
 import Modal from "../Modal";
 
 const Technical = () => {
-  const { request, loading, error } = useAxios();
   const [car, setCar] = useState({});
   const [open, setOpen] = useState(false);
   const [choosedImg, setChoosedImg] = useState();
-  const carId = useParams().id;
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const cloudBaseUrl = `${import.meta.env.VITE_CLOUDINARY_URL}`;
+  const { id: carId } = useParams();
 
   const places = [
     { id: 1, place_name: "Tashkent", value: "Tashkent" },
     { id: 2, place_name: "Samarqand", value: "Samarqand" },
     { id: 3, place_name: "Buxoro", value: "Buxoro" },
-    { id: 4, place_name: "Navoiy", value: "Novoiy" },
+    { id: 4, place_name: "Navoiy", value: "Navoiy" },
     { id: 5, place_name: "Xorazm", value: "Xorazm" },
     { id: 6, place_name: "Namangan", value: "Namangan" },
-    { id: 7, place_name: "Jizzax", value: "Jizzax" },
+    { id: 7, place_name: "Jizzax", value: "Jizzax" }
   ];
 
   useEffect(() => {
-    (async () => {
-      const result = await request({
-        url: `${import.meta.env.VITE_API}/cars/${carId}`,
-      });
-
-      if (result?.success) {
-        setCar(result.data);
-        setChoosedImg(result.data.main_image);
+    const fetchCar = async () => {
+      try {
+        const res = await fetch("/cars.json"); // public/cars.json dan o‘qiydi
+        if (!res.ok) throw new Error("Failed to fetch car data");
+        const data = await res.json();
+        const foundCar = data.find((c) => String(c.id) === String(carId));
+        if (foundCar) {
+          setCar(foundCar);
+          setChoosedImg(foundCar.main_image);
+        } else {
+          setError(new Error("Car not found"));
+        }
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
       }
-    })();
+    };
+
+    fetchCar();
   }, [carId]);
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (error) return <p className="text-red-500">Error: {error.message}</p>;
 
   return (
     <section className="py-6 md:py-[60px] flex flex-col md:flex-row gap-10">
@@ -64,7 +73,7 @@ const Technical = () => {
 
         {/* Main image */}
         <img
-          src={cloudBaseUrl + choosedImg}
+          src={choosedImg || "https://via.placeholder.com/400x300?text=No+Image"}
           alt="main"
           className="w-full h-auto max-h-[300px] md:max-h-[360px] object-cover rounded-lg"
         />
@@ -101,9 +110,7 @@ const Technical = () => {
             <BsFuelPump size={25} />
             <div>
               <p className="font-semibold">Air conditioner</p>
-              <p className="text-gray-500">
-                {car?.air_conditioner ? "Yes" : "No"}
-              </p>
+              <p className="text-gray-500">{car?.air_conditioner ? "Yes" : "No"}</p>
             </div>
           </div>
           <div className="bg-[#FAFAFA] rounded-[12px] flex flex-col gap-4 justify-center p-[20px]">
@@ -128,12 +135,18 @@ const Technical = () => {
           Rent a car
         </button>
       </div>
+
+      {/* Modal */}
       <Modal open={open} onClose={() => setOpen(false)}>
         <div className="w-[410px] max-[500px]:w-[350px] bg-white rounded-[20px] shadow-2xl overflow-hidden">
           <form className="p-6 flex flex-col gap-5">
             <p className="text-[24px] font-bold text-center">Rent {car?.title}</p>
             <div>
-              <input type="text" placeholder="Phone number" className="w-full h-[42px] appearance-none outline-none bg-[#FAFAFA] rounded-[12px] px-3 text-gray-700 focus:ring-2 focus:ring-[#5937E0] transition placeholder:text-gray-700" />
+              <input
+                type="text"
+                placeholder="Phone number"
+                className="w-full h-[42px] appearance-none outline-none bg-[#FAFAFA] rounded-[12px] px-3 text-gray-700 focus:ring-2 focus:ring-[#5937E0] transition placeholder:text-gray-700"
+              />
             </div>
             <div className="relative">
               <select
@@ -152,7 +165,6 @@ const Technical = () => {
               <IoIosArrowDown className="absolute top-3.5 right-4" />
             </div>
 
-            {/* Place of return */}
             <div className="relative">
               <select
                 defaultValue="Tashkent"
@@ -176,10 +188,7 @@ const Technical = () => {
                 placeholder="Rental date"
                 className="w-full h-[42px] appearance-none outline-none bg-[#FAFAFA] rounded-[12px] px-3 text-gray-700 focus:ring-2 focus:ring-[#5937E0] transition placeholder:text-gray-700"
               />
-              <HiMiniCalendarDateRange
-                className="absolute top-3 right-3"
-                size={20}
-              />
+              <HiMiniCalendarDateRange className="absolute top-3 right-3" size={20} />
             </div>
 
             <div className="flex flex-col text-start gap-1 text-gray-700 relative">
@@ -188,10 +197,7 @@ const Technical = () => {
                 placeholder="Return date"
                 className="w-full h-[42px] appearance-none outline-none bg-[#FAFAFA] rounded-[12px] px-3 text-gray-700 focus:ring-2 focus:ring-[#5937E0] transition placeholder:text-gray-700"
               />
-              <HiMiniCalendarDateRange
-                className="absolute top-3 right-3"
-                size={20}
-              />
+              <HiMiniCalendarDateRange className="absolute top-3 right-3" size={20} />
             </div>
 
             <button
